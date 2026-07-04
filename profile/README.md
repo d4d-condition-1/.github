@@ -65,20 +65,7 @@
 - 🔒 **스키마 강제** — Anthropic·OpenAI·Gemini 출력 구조 고정, PDF 그대로 첨부
 - 🧑‍✈️ **사람이 검수** — AI는 초안만, 관리자 승인 후 배정
 
-```mermaid
-sequenceDiagram
-  autonumber
-  participant G as 개정 지침·교범
-  participant Admin as 관리자
-  participant Srv as D4D
-  participant LLM as AI
-  G->>Admin: 지침 개정 (전술·장비 변경)
-  Admin->>Srv: 교범 업로드 (본문 / PDF)
-  Srv->>LLM: 자료 근거 문항 생성 (스키마 강제)
-  LLM-->>Srv: 문항 초안 (근거 밖 생성 금지)
-  Srv-->>Admin: 초안 검수
-  Admin->>Srv: 승인 → 저장 → 과제 배정 → 실시간 알림
-```
+<img src="assets/diagram1.svg" alt="다이어그램 1" width="820"/>
 
 **📸 [ 스크린샷 자리 — AI 출제(교범 업로드 → 문항 초안 검수) 화면 ]**
 <!-- 교체: <img src="docs/ai-generate.png" alt="AI 자동 출제" width="820"/> -->
@@ -102,16 +89,7 @@ sequenceDiagram
 
 **약한 곳을, 지금 실력에 딱 맞는 난이도로, 반복해서.** 이 루프가 제한된 복무 기간 안에서 숙련 도달 시간을 압축한다.
 
-```mermaid
-flowchart LR
-  D[진단<br/>7역량 커버] --> W{최약점<br/>식별}
-  W --> L["점수 → 목표 난이도<br/>1~5"]
-  L --> Q[적응형 출제<br/>약점 × 목표난이도]
-  Q --> S[서버 채점<br/>정답 미노출]
-  S --> U["점수 갱신<br/>+정답 / −오답"]
-  U --> W
-  U --> R[집중훈련 추천<br/>· 리포트]
-```
+<img src="assets/diagram2.svg" alt="다이어그램 2" width="820"/>
 
 **📸 [ 스크린샷 자리 — 적응형 훈련 진행 + 역량 레이더/추천 카드 ]**
 <!-- 교체: <img src="docs/adaptive.png" alt="적응형 훈련" width="820"/> -->
@@ -127,30 +105,7 @@ flowchart LR
 
 국방 환경을 염두에 두고 **런타임 의존성 0**을 원칙으로 삼았다. 외부 패키지 없이 Node 내장 모듈만 쓰므로 공급망 공격 표면이 없고, 폐쇄망에서도 빌드·배포가 단순하다. 라우터와 WebSocket 서버까지 직접 구현해 전체 동작을 투명하게 통제한다.
 
-```mermaid
-flowchart LR
-  subgraph Client["클라이언트 (웹)"]
-    T[장병 앱]
-    A[관리자 콘솔]
-  end
-  subgraph Server["D4D Server · Node 23.4+ · 런타임 의존성 0"]
-    R[미니 라우터] --> AUTH[세션 인증]
-    R --> TR[적응형 출제 엔진]
-    R --> AIQ[AI 출제 엔진]
-    R --> REC[약점 추천 엔진]
-    R --> ADM[부대 관리·대시보드]
-    R --> WS[WebSocket 실시간]
-  end
-  DB[(SQLite · WAL)]
-  LLM[["Anthropic · OpenAI · Gemini"]]
-  T -- REST / WS --> R
-  A -- REST / WS --> R
-  TR --> DB
-  AIQ --> LLM
-  AIQ --> DB
-  REC --> DB
-  ADM --> DB
-```
+<img src="assets/diagram3.svg" alt="다이어그램 3" width="820"/>
 
 ### 스택
 
