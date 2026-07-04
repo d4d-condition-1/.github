@@ -15,8 +15,9 @@
 > ### 복무는 짧아지고 병력은 줄어든다. 남은 시간 안에 초급 전투원을 정예로 만든다.
 > 개인 맞춤 **적응형 사전훈련**으로 숙련을 가속하고, **지침이 바뀌면 훈련 문제도 AI가 자동으로 다시 만든다.**
 
-**📸 [ 히어로 스크린샷 자리 — 장병 대시보드 또는 적응형 훈련 화면 ]**
-<!-- 교체: <img src="docs/hero.png" alt="D4D 데모" width="820"/> -->
+<img src="assets/image.png" alt="장병 대시보드" width="820"/>
+<br/><br/>
+<img src="assets/image_copy.png" alt="적응형 훈련 화면" width="820"/>
 
 <sub>트랙 · **Force Readiness, Training & Simulation** (전투준비·교육·시뮬레이션) — EGCED TECH</sub>
 
