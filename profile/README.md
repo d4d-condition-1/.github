@@ -18,7 +18,7 @@
 > 저희가 만드는 건 "AI가 대충 써준 교본"이 아니라, 사람이 근거를 눈으로 확인하고 검증하는 지침입니다.
 
 **📸 [ 히어로: 지침 생성(수집→교안) 화면 · 캡처 예정 ]**
-<!-- 준비되면 교체: <img src="docs/hero-generate.png" alt="D4D 지침 생성" width="860"/> -->
+<!-- 준비되면 교체: <img src="https://raw.githubusercontent.com/d4d-condition-1/.github/main/profile/assets/hero-generate.png" alt="D4D 지침 생성" width="860"/> -->
 
 <sub>트랙 · Force Readiness, Training & Simulation (전투준비·교육·시뮬레이션) · EGCED TECH</sub>
 
@@ -50,21 +50,7 @@
 
 D4D는 최신 전장 정보를 자동으로 모아, 출처가 그대로 따라붙는 교재와 훈련 초안으로 바꿔 교관에게 건넵니다. AI는 자료를 찾고 정리하는 일을 대신할 뿐, 최종 판단은 언제나 사람이 합니다.
 
-```mermaid
-flowchart LR
-  subgraph SRC["① 자동 수집 ✅"]
-    N[뉴스 · RSS]
-    TG[공식 텔레그램]
-    YT[유튜브]
-    WEB[웹]
-  end
-  SRC --> A["② 아티클 아카이브 ✅<br/>원문 링크·이미지 보존<br/>중복 제거"]
-  A --> V{"③ 구조화·교차검증 ◔<br/>사건·장소·피해·패턴<br/>단일기사 차단"}
-  V --> M["④ 교재(교안) 초안 ✅<br/>원문 연결·출처 추적"]
-  M --> Q["⑤ 문항·상황이미지 초안 ✅<br/>근거 기반·환각 차단"]
-  Q --> R["⑥ 전문가 검수 ✅<br/>승인해야 배포"]
-  R --> EDU["⑦ 적응형 교육 배포 ✅"]
-```
+<img src="https://raw.githubusercontent.com/d4d-condition-1/.github/main/profile/assets/diagram1.svg" alt="지침 생성 흐름" width="820"/>
 
 <div align="center"><sub><b>✅ 현재 구현</b> · <b>◔ 설계·진행 중</b></sub></div>
 
@@ -90,17 +76,10 @@ flowchart LR
 
 이렇게 만든 교재와 문항은 곧바로 적응형 훈련으로 이어집니다. 먼저 진단으로 약한 역량을 찾아내고, 각자 실력에 맞는 난이도로 그 약점만 집중해서 반복시킵니다. 짧은 복무 기간 안에 숙련도가 올라오는 시간을 최대한 당기는 거죠.
 
-```mermaid
-flowchart LR
-  D[진단<br/>7역량] --> W{최약점 식별}
-  W --> L["점수 → 난이도 1~5"]
-  L --> Q[적응형 출제] --> S[서버 채점] --> U["점수 갱신"]
-  U --> W
-  U --> R[집중훈련 추천·리포트]
-```
+<img src="https://raw.githubusercontent.com/d4d-condition-1/.github/main/profile/assets/diagram2.svg" alt="적응형 훈련 루프" width="820"/>
 
 <div align="center">
-<img src="docs/report-radar.png" alt="개인 역량 리포트 · 7대 역량 레이더와 약점 우선순위" width="330"/>
+<img src="https://raw.githubusercontent.com/d4d-condition-1/.github/main/profile/assets/report-radar.png" alt="개인 역량 리포트 · 7대 역량 레이더와 약점 우선순위" width="330"/>
 <br/><sub>▲ 개인 역량 리포트 · 7대 전투역량 레이더 · 약점 우선순위 · 추천 훈련</sub>
 </div>
 
@@ -113,7 +92,7 @@ flowchart LR
 교관은 흩어진 숫자가 아니라 부대 전체와 개인을 한 화면에서 봅니다. 이렇게 훤히 보이니까 두 가지가 가능해집니다. 사람마다 다른 교육을 배정할 수 있고, 부대의 전투 준비 상태를 실시간으로 파악할 수 있습니다.
 
 <div align="center">
-<img src="docs/admin-dashboard.png" alt="부대 현황 대시보드" width="880"/>
+<img src="https://raw.githubusercontent.com/d4d-condition-1/.github/main/profile/assets/admin-dashboard.png" alt="부대 현황 대시보드" width="880"/>
 <br/><sub>▲ 부대 현황 · 전체 인원·평균 숙련도·등급 분포(S~D)·카테고리별 부대 평균·최근 활동·누적 AI 요청</sub>
 </div>
 
@@ -122,7 +101,7 @@ flowchart LR
 - 그래서 · 약한 역량과 뒤처진 인원을 짚어 맞춤 교재·과제를 배정하고(개인화 교육), 부대의 전력 공백을 실시간으로 메웁니다.
 
 <div align="center">
-<img src="docs/report-vs-unit.png" alt="나 vs 부대 평균 역량 분석" width="330"/>
+<img src="https://raw.githubusercontent.com/d4d-condition-1/.github/main/profile/assets/report-vs-unit.png" alt="나 vs 부대 평균 역량 분석" width="330"/>
 <br/><sub>▲ 개인 분석 · 나 vs 부대 평균 · 부대 내 순위 · 최대 격차 약점</sub>
 </div>
 
@@ -148,28 +127,7 @@ flowchart LR
 
 국방 환경을 생각해 런타임 의존성을 아예 0으로 뒀습니다. 외부 패키지 없이 Node 내장 모듈만 쓰기 때문에 공급망 공격이 파고들 틈이 없고, 폐쇄망에서도 빌드와 배포가 간단합니다. RSS·텔레그램·웹 수집기와 WebSocket 서버까지 직접 구현해서, 무엇이 어떻게 도는지 전부 저희가 통제합니다.
 
-```mermaid
-flowchart LR
-  subgraph Ext["외부 출처"]
-    NEWS[뉴스·RSS] & TGRAM[텔레그램] & YTB[유튜브] & WEBP[웹]
-  end
-  subgraph Server["D4D Server · Node 23.4+ · 런타임 의존성 0"]
-    SCR[수집기<br/>rss·telegram·youtube·web·api] --> FEED[피드/아티클]
-    FEED --> MAT[교재·문항 생성]
-    R[미니 라우터] --> AUTH[세션 인증]
-    R --> TR[적응형 출제 엔진]
-    R --> REC[약점 추천]
-    R --> ADM[부대 관리·대시보드]
-    R --> WS[WebSocket 실시간]
-  end
-  DB[(SQLite · WAL)]
-  LLM[["Anthropic · OpenAI · Gemini<br/>텍스트 + 이미지"]]
-  Ext --> SCR
-  MAT --> LLM
-  MAT --> DB
-  TR --> DB
-  ADM --> DB
-```
+<img src="https://raw.githubusercontent.com/d4d-condition-1/.github/main/profile/assets/diagram3.svg" alt="아키텍처" width="820"/>
 
 ### 스택
 
