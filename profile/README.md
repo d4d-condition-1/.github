@@ -18,7 +18,7 @@
 > 핵심은 *"AI가 만든 교본"*이 아니라 ***"사람이 검증할 수 있는, 근거 있는 지침 생성"*** 이다.
 
 **📸 [ 히어로: 지침 생성(수집→교안) 화면 — 캡처 예정 ]**
-<!-- 준비되면 교체: <img src="docs/hero-generate.png" alt="D4D 지침 생성" width="860"/> -->
+<!-- 준비되면 교체: <img src="assets/hero-generate.png" alt="D4D 지침 생성" width="860"/> -->
 
 <sub>트랙 · **Force Readiness, Training & Simulation** (전투준비·교육·시뮬레이션) — EGCED TECH</sub>
 
@@ -50,21 +50,7 @@
 
 D4D는 최신 전장 정보를 자동으로 모아 **출처가 추적되는 교재·훈련 초안**으로 바꿔 교관에게 바로 건넨다. AI는 리서치·정리를 대신할 뿐, **최종 판단은 사람이 한다.**
 
-```mermaid
-flowchart LR
-  subgraph SRC["① 자동 수집 ✅"]
-    N[뉴스 · RSS]
-    TG[공식 텔레그램]
-    YT[유튜브]
-    WEB[웹]
-  end
-  SRC --> A["② 아티클 아카이브 ✅<br/>원문 링크·이미지 보존<br/>중복 제거"]
-  A --> V{"③ 구조화·교차검증 ◔<br/>사건·장소·피해·패턴<br/>단일기사 차단"}
-  V --> M["④ 교재(교안) 초안 ✅<br/>원문 연결·출처 추적"]
-  M --> Q["⑤ 문항·상황이미지 초안 ✅<br/>근거 기반·환각 차단"]
-  Q --> R["⑥ 전문가 검수 ✅<br/>승인해야 배포"]
-  R --> EDU["⑦ 적응형 교육 배포 ✅"]
-```
+<img src="assets/diagram1.svg" alt="지침 생성 흐름" width="820"/>
 
 <div align="center"><sub><b>✅ 현재 구현</b> · <b>◔ 설계·진행 중</b></sub></div>
 
@@ -90,17 +76,10 @@ flowchart LR
 
 생성한 교재·문항은 곧바로 **적응형 훈련**으로 이어진다. 진단으로 약점을 찾고, 개인 실력에 맞춘 난이도로 최약점을 집중 반복시켜 짧은 복무 기간 안에 **숙련 도달 시간을 압축**한다.
 
-```mermaid
-flowchart LR
-  D[진단<br/>7역량] --> W{최약점 식별}
-  W --> L["점수 → 난이도 1~5"]
-  L --> Q[적응형 출제] --> S[서버 채점] --> U["점수 갱신"]
-  U --> W
-  U --> R[집중훈련 추천·리포트]
-```
+<img src="assets/diagram2.svg" alt="적응형 훈련 루프" width="820"/>
 
 <div align="center">
-<img src="docs/report-radar.png" alt="개인 역량 리포트 — 7대 역량 레이더와 약점 우선순위" width="330"/>
+<img src="assets/report-radar.png" alt="개인 역량 리포트 — 7대 역량 레이더와 약점 우선순위" width="330"/>
 <br/><sub>▲ 개인 역량 리포트 — 7대 전투역량 레이더 · 약점 우선순위 · 추천 훈련</sub>
 </div>
 
@@ -113,7 +92,7 @@ flowchart LR
 교관은 흩어진 데이터가 아니라 **부대 전체와 개인을 한 화면에서** 본다. 이 가시성이 두 가지를 가능하게 한다 — **개인화된 교육 배정**과 **부대 전력(전투준비태세)의 실시간 파악.**
 
 <div align="center">
-<img src="docs/admin-dashboard.png" alt="부대 현황 대시보드" width="880"/>
+<img src="assets/admin-dashboard.png" alt="부대 현황 대시보드" width="880"/>
 <br/><sub>▲ 부대 현황 — 전체 인원·평균 숙련도·등급 분포(S~D)·카테고리별 부대 평균·최근 활동·누적 AI 요청</sub>
 </div>
 
@@ -122,7 +101,7 @@ flowchart LR
 - **→ 이렇게 쓰인다** — 약한 역량·저숙련 인원을 식별해 **맞춤 교재·과제를 배정**(개인화 교육)하고, **부대의 전력 공백을 실시간으로 파악**한다
 
 <div align="center">
-<img src="docs/report-vs-unit.png" alt="나 vs 부대 평균 역량 분석" width="330"/>
+<img src="assets/report-vs-unit.png" alt="나 vs 부대 평균 역량 분석" width="330"/>
 <br/><sub>▲ 개인 분석 — 나 vs 부대 평균 · 부대 내 순위 · 최대 격차 약점</sub>
 </div>
 
@@ -148,28 +127,7 @@ flowchart LR
 
 국방 환경을 염두에 두고 **런타임 의존성 0**을 원칙으로 삼았다. 외부 패키지 없이 Node 내장 모듈만 쓰므로 공급망 공격 표면이 없고, 폐쇄망에서도 빌드·배포가 단순하다. RSS·텔레그램·웹 **수집기(scraper)와 WebSocket 서버까지 직접 구현**해 전체 동작을 투명하게 통제한다.
 
-```mermaid
-flowchart LR
-  subgraph Ext["외부 출처"]
-    NEWS[뉴스·RSS] & TGRAM[텔레그램] & YTB[유튜브] & WEBP[웹]
-  end
-  subgraph Server["D4D Server · Node 23.4+ · 런타임 의존성 0"]
-    SCR[수집기<br/>rss·telegram·youtube·web·api] --> FEED[피드/아티클]
-    FEED --> MAT[교재·문항 생성]
-    R[미니 라우터] --> AUTH[세션 인증]
-    R --> TR[적응형 출제 엔진]
-    R --> REC[약점 추천]
-    R --> ADM[부대 관리·대시보드]
-    R --> WS[WebSocket 실시간]
-  end
-  DB[(SQLite · WAL)]
-  LLM[["Anthropic · OpenAI · Gemini<br/>텍스트 + 이미지"]]
-  Ext --> SCR
-  MAT --> LLM
-  MAT --> DB
-  TR --> DB
-  ADM --> DB
-```
+<img src="assets/diagram3.svg" alt="아키텍처" width="820"/>
 
 ### 스택
 
